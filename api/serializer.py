@@ -39,12 +39,14 @@ class CartSerializer(ModelSerializer):
     class Meta:
         model = Cart
         fields = '__all__'
+        depth = 3
 
 
 class WaiterSerializer(ModelSerializer):
     class Meta:
         model = Waiter
         fields = '__all__'
+
 
 
 # !-------------------------------------------Register Serializer----------------------------------------#

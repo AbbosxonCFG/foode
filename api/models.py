@@ -24,7 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=20, decimal_places=2)
-    image = models.ImageField(upload_to="rasmlar", null=True, blank=True)
+    image = models.ImageField(upload_to="products/", null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='product')
     quantity = models.IntegerField(default=0)
 
@@ -74,7 +74,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.stol.id
+        return str(self.stol.id)
 
     def save(self, *args, **kwargs):
         super(Cart, self).save(*args, **kwargs)

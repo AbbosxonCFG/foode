@@ -6,15 +6,11 @@ from api.models import Category, Product, Order, Cart, Waiter
 from api.serializer import CategorySerializer, ProductSerializer, OrderSerializer, CartSerializer
 
 
-
 @api_view(['GET'])
 def get_categories(request):
     categories = Category.objects.all()
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
 
 
 @api_view(['GET'])
@@ -28,9 +24,6 @@ def get_products(request):
     product = Product.objects.get(id=product_id)
     serializer = ProductSerializer(product)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
 
 
 @api_view(['POST'])
@@ -60,13 +53,13 @@ def create_order(request):
             stol_id=table_id,
         )
         cart.products.add(product)
-    serializer=OrderSerializer(order).data
-    contex={
-                "Message":'Order created',
-                'data':serializer
+    serializer = OrderSerializer(order).data
+    contex = {
+        "Message": 'Order created',
+        'data': serializer
 
-            }
-    return Response(contex,status=201)
+    }
+    return Response(contex, status=201)
 
     
     
