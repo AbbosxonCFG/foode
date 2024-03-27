@@ -6,11 +6,15 @@ from api.models import Category, Product, Order, Cart, Waiter
 from api.serializer import CategorySerializer, ProductSerializer, OrderSerializer, CartSerializer
 
 
+
 @api_view(['GET'])
 def get_categories(request):
     categories = Category.objects.all()
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
 
 
 @api_view(['GET'])
@@ -26,6 +30,9 @@ def get_products(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+
+
+
 @api_view(['POST'])
 def create_order(request):
     product_id = request.data.get('product_id')
@@ -37,11 +44,11 @@ def create_order(request):
         quantity=quantity
     )
     product = Product.objects.get(id=product_id)
-    product.quantity = product.quantity - quantity
+    product.quantity = int(product.quantity) - int(quantity)
     product.save()
     cart = Cart.objects.filter(stol_id=table_id, is_active=True)
     if cart:
-        cart[0].product.add(product)
+        cart[0].products.add(product)
     else:
         waiters = Waiter.objects.all()
         waiter = waiters[0]
@@ -53,7 +60,20 @@ def create_order(request):
             stol_id=table_id,
         )
         cart.products.add(product)
-    return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
+    serializer=OrderSerializer(order).data
+    contex={
+                "Message":'Order created',
+                'data':serializer
+
+            }
+    return Response(contex,status=201)
+
+    
+    
+    
+    # return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
+
+
 
 
 @api_view(['GET'])

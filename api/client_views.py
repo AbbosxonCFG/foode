@@ -10,32 +10,32 @@ from rest_framework.authentication import BasicAuthentication,SessionAuthenticat
 
 from .permissions import IsAdmin
 from rest_framework.views import APIView
-import qrcode
+# import qrcode
 
 #!--------------------------------------------------------QR CODE--------------------------------------------#
 
 
 
-class QRCodeGenerator(APIView):
-    def get(self, request):
-        qr_code_data = []
-        base_url = "http://127.0.0.1:8000/api/category_list/"  # Sizning saytingiz URL manzili
-        for i in range(1, 11):
-            qr = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4,
-            )
-            qr.add_data(base_url + str(i))  # Saytingiz URL'si va sonni birlashtiramiz
-            qr.make(fit=True)
+# class QRCodeGenerator(APIView):
+#     def get(self, request):
+#         qr_code_data = []
+#         base_url = "http://127.0.0.1:8000/api/category_list/"  # Sizning saytingiz URL manzili
+#         for i in range(1, 11):
+#             qr = qrcode.QRCode(
+#                 version=1,
+#                 error_correction=qrcode.constants.ERROR_CORRECT_L,
+#                 box_size=10,
+#                 border=4,
+#             )
+#             qr.add_data(base_url + str(i))  # Saytingiz URL'si va sonni birlashtiramiz
+#             qr.make(fit=True)
 
-            img = qr.make_image(fill_color="black", back_color="white")
-            qr_code_name = f"qr_code_{i}.png"
-            img.save(qr_code_name)
-            qr_code_data.append({"number": i, "qr_code": qr_code_name, "url": base_url + str(i)})  # Ma'lumotlarni qo'shamiz
+#             img = qr.make_image(fill_color="black", back_color="white")
+#             qr_code_name = f"qr_code_{i}.png"
+#             img.save(qr_code_name)
+#             qr_code_data.append({"number": i, "qr_code": qr_code_name, "url": base_url + str(i)})  # Ma'lumotlarni qo'shamiz
 
-        return Response(qr_code_data, status=status.HTTP_200_OK)
+#         return Response(qr_code_data, status=status.HTTP_200_OK)
 
 
 #!--------------------------------------------CATEGORY---------------------------------------------------#

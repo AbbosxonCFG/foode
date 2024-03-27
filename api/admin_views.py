@@ -20,7 +20,7 @@ def create_table(request):
     return Response(StolSerializer(stol).data, status=status.HTTP_201_CREATED)
 
 
-@api_view([''])
+# @api_view([''])
 
 
 
