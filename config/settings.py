@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'dashboard'
+    'dashboard',
+    'client',
 ]
 
 # AUTH_USER_MODEL="api.User"
