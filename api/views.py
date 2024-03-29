@@ -121,10 +121,3 @@ def get_cart(request):
 
 
 
-
-
-
-
-
-
-

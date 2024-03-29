@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+
+            <h2 style="color: rgb(25, 212, 212);">All product</h2>
+            <ul>
+                {% for i in products %}
+                <li>
+                    <h3 style="color: rgb(109, 107, 107);">Product name : {{ i.name }} -quantity : {{ i.quantity }}</h3>
+                    <h5 style="color: rgb(109, 107, 107);">all information: <a
+                            href="{% url 'product_detail' i.pk %}">here</a></h5>
+                </li>
+                {% endfor %}
+
+            </ul>
+            <h2> <a href="{% url 'product_add' %}"><button class="btn btn-primary">Product+</button></a></h2>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

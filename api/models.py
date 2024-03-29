@@ -1,7 +1,8 @@
 from typing import Iterable
 from django.db import models
-from django .contrib.auth .models import AbstractUser
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 
 
 class Waiter(models.Model):
@@ -20,8 +21,14 @@ class Category(models.Model):
         return self.name
 
 
+def name_validator(value):
+    if value is not None:
+        return True
+    else:
+        raise ValidationError('This field is required')
+
 class Product(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, validators=[name_validator])
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     image = models.ImageField(upload_to="products/", null=True, blank=True)

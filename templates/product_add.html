@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <h2 style="color: rgb(14, 230, 230);">Add product</h2>
+
+
+            <form enctype="multipart/form-data" action="{% url 'product_add' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">name</label>
+                    <input name="name" type="text" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Price</label>
+                    <input name="price" type="text" class="form-control" id="exampleInputPassword1" placeholder="price">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Image</label>
+                    <input name="image" enctype="multipart" type="file" class="form-control" id="exampleInputPassword1"
+                        placeholder="image">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Quantity</label>
+                    <input name="quantity" type="text" class="form-control" id="exampleInputPassword1"
+                        placeholder="quantity">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Category-id</label>
+                    <input name="category_id" type="password" class="form-control" id="exampleInputPassword1"
+                        placeholder="category-id">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
