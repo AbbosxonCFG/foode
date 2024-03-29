@@ -5,25 +5,65 @@
 
 
 
-<div class="pcoded-main-container">
-    <div class="pcoded-wrapper">
-        <div class="pcoded-content">
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="col">
+                <div class="card Recent-Users">
+                    <div class="card-header">
+                        <h5>Recent Users</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <a href="{% url 'product_add' %}">
+                                    <button type="button" class="btn btn-rounded btn-info">
+                                        <i class="feather icon-plus"></i>
+                                        Add
+                                    </button>
+                                </a>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i
+                                            class="feather icon-maximize"></i> maximize</span><span
+                                            style="display:none"><i
+                                            class="feather icon-minimize"></i> Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i
+                                            class="feather icon-minus"></i> collapse</span><span style="display:none"><i
+                                            class="feather icon-plus"></i> expand</span></a></li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i
+                                            class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i>
+                                        remove</a></li>
+                                </ul>
 
-            <h2 style="color: rgb(25, 212, 212);">All product</h2>
-            <ul>
-                {% for i in products %}
-                <li>
-                    <h3 style="color: rgb(109, 107, 107);">Product name : {{ i.name }} -quantity : {{ i.quantity }}</h3>
-                    <h5 style="color: rgb(109, 107, 107);">all information: <a
-                            href="{% url 'product_detail' i.pk %}">here</a></h5>
-                </li>
-                {% endfor %}
-
-            </ul>
-            <h2> <a href="{% url 'product_add' %}"><button class="btn btn-primary">Product+</button></a></h2>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block px-0 py-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                {% for product in products %}
+                                <tr class="unread">
+                                    <td><img class="rounded-circle" style="width:40px;"
+                                             src="{{ product.image.url }}" alt="activity-user"></td>
+                                    <td>
+                                        <h6 class="mb-1">{{ product.name }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-muted">{{ product.quantity }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-muted">{{ product.category.name }}</h6>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'product_delete' product.id %}" class="label theme-bg2 text-white f-12">Delete</a>
+                                        <a href="{% url 'product_edit' product.id %}" class="label theme-bg text-white f-12">Update</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

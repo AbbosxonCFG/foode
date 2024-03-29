@@ -8,31 +8,33 @@
             <h2 style="color: rgb(14, 230, 230);">Add product</h2>
 
 
-            <form enctype="multipart/form-data" action="{% url 'product_add' %}" method="post">
+            <form enctype="multipart/form-data" action="{% url 'product_add' %}" enctype="multipart/form-data", method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="exampleInputEmail1">name</label>
-                    <input name="name" type="text" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Enter product name">
+                    <label for="e1">name</label>
+                    <input name="name" type="text" class="form-control" id="e1" placeholder="Enter product name" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Price</label>
-                    <input name="price" type="text" class="form-control" id="exampleInputPassword1" placeholder="price">
+                    <label for="ex1">Price</label>
+                    <input name="price" type="text" class="form-control" id="ex1" placeholder="price" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Image</label>
-                    <input name="image" enctype="multipart" type="file" class="form-control" id="exampleInputPassword1"
-                        placeholder="image">
+                    <label for="exa">Image</label>
+                    <input name="image" type="file" class="form-control" id="exa"
+                        placeholder="image" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Quantity</label>
                     <input name="quantity" type="text" class="form-control" id="exampleInputPassword1"
-                        placeholder="quantity">
+                        placeholder="quantity" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Category-id</label>
-                    <input name="category_id" type="password" class="form-control" id="exampleInputPassword1"
-                        placeholder="category-id">
+                    <label for="exam1">Category</label>
+                    <select class="form-control" id="exam1" name="category_id" required>
+                        {% for c in category %}
+                            <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>

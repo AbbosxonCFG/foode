@@ -1,3 +1,8 @@
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
+
 from typing import Iterable
 from django.db import models
 from django.contrib.auth.models import User
@@ -21,14 +26,8 @@ class Category(models.Model):
         return self.name
 
 
-def name_validator(value):
-    if value is not None:
-        return True
-    else:
-        raise ValidationError('This field is required')
-
 class Product(models.Model):
-    name = models.CharField(max_length=100, unique=True, validators=[name_validator])
+    name = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     image = models.ImageField(upload_to="products/", null=True, blank=True)
@@ -41,9 +40,23 @@ class Product(models.Model):
 
 class Stol(models.Model):
     number = models.IntegerField(unique=True)
+    qr = models.ImageField(upload_to="table/", null=True, blank=True)
 
     def __str__(self):
         return str(self.number)
+
+    def generate_qr(self, link):
+        qr_image = qrcode.make(link)
+        qr_offset = Image.new('RGB', (310, 310), 'white')
+        draw_img = ImageDraw.Draw(qr_offset)
+        qr_offset.paste(qr_image)
+        file_name = f'{self.id}qr.png'
+        stream = BytesIO()
+        qr_offset.save(stream, 'PNG')
+        self.qr.save(file_name, File(stream), save=True)
+        self.save()
+        qr_offset.close()
+
 
 
 class Order(models.Model):

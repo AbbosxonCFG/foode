@@ -1,10 +1,6 @@
-from django.shortcuts import render,redirect
-from api.models import *
-from rest_framework .decorators import *
-from rest_framework.response import Response
-from rest_framework import status
+import qrcode
+
 from api.serializer import *
-from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -13,24 +9,25 @@ def index(request):
     return render(request, 'index.html')
 
 
-
 def table(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        print(email, password)
-    return render(request, 'table.html')
-
+        number = request.POST['number']
+        table = Stol.objects.create(
+            number=number
+        )
+        table.generate_qr(f'{request.get_host()}/{table.id}')
+    tables = Stol.objects.all()
+    return render(request, 'table.html', {'tables': tables})
 
 
 def product(request):
-    products=Product.objects.all().order_by('-id')
+    products = Product.objects.all().order_by('-id')
     for i in products:
         print(i.name)
-    contex={
-        'products':products
+    contex = {
+        'products': products
     }
-    return render(request,'product.html',contex)
+    return render(request, 'product.html', contex)
 
 
 
@@ -42,7 +39,6 @@ def product_detail(request,pk):
     return render(request,'product_detail.html',contex)
 
 
-
 def product_add(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -50,22 +46,16 @@ def product_add(request):
         image = request.FILES.get('image')
         category_id = request.POST.get('category_id')
         quantity = request.POST.get('quantity')
-
-        if name and price and category_id and quantity:
-            product = Product.objects.create(
-                name=name,
-                price=price,
-                image=image,
-                category_id=category_id,
-                quantity=quantity,
-            )
-            messages.success(request,'Product added successfully')
-            return redirect('product') 
-        else:
-            messages.error(request,"You shuuld fill all the fields")
-            return render(request, 'product_add.html')
-    else:
-        return render(request, 'product_add.html')
+        Product.objects.create(
+            name=name,
+            price=price,
+            image=image,
+            category_id=category_id,
+            quantity=quantity
+        )
+        return redirect('product')
+    category = Category.objects.all()
+    return render(request, 'product_add.html', {"category": category})
 
 
 
