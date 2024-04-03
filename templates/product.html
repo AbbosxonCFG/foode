@@ -43,7 +43,7 @@
                         <table class="table table-hover">
                             {% for product in products %}
                             <tr class="unread">
-                                <td><img class="rounded-circle" style="width:40px;" src="{{ product.image.url }}"
+                                <td><img class="rounded-circle" style="width:80px;" src="{{ product.image.url }}"
                                         alt="activity-user"></td>
                                 <td>
                                     <h6 class="mb-1">{{ product.name }}</h6>
@@ -55,10 +55,9 @@
                                     <h6 class="text-muted">{{ product.category.name }}</h6>
                                 </td>
                                 <td>
-                                    <button type="button" class="label theme-bg2 text-white f-12" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        o'chirish
-                                    </button>
+                                    <button style="border-radius: 10px;" class="btn btn-danger">Delete</button>
+
+
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -84,8 +83,8 @@
                                     </div>
                                     <!-- <a href="{% url 'product_delete' product.id %}"
                                         class="label theme-bg2 text-white f-12">Delete</a> -->
-                                    <a href="{% url 'product_edit' product.id %}"
-                                        class="label theme-bg text-white f-12">Update</a>
+                                    <a href="{% url 'product_edit' product.id %}"><button
+                                        style="border-radius: 10px;"    class="btn btn-info">update</button></a>
                                 </td>
                             </tr>
                             {% endfor %}

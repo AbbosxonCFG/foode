@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <h2 style="color: rgb(14, 230, 230);">Orders</h2>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    <h3>Order</h3>
+                                </th>
+                                <th>
+                                    <h3>Stol</h3>
+                                </th>
+
+                                <th>
+                                    <h3>Number</h3>
+                                </th>
+
+                                <th>
+                                    <h3>Created_at</h3>
+                                </th>
+
+                                <th>
+                                    <h3>Delete</h3>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for i in stols %}
+                            {% if i.order.all %}
+                            <tr>
+                                <a href="{% url 'order' i.pk %}">
+                                    <th scope="row"><i class="fas fa-bell"></i></th>
+                                    <td>
+                                        <h5>order</h5>
+                                    </td>
+                                    <td>
+                                        <h5>stol</h5>
+                                    </td>
+
+                                    <td>
+                                        <a href="{% url 'order' i.pk  %}">
+                                            <button style="width: 80px;" class="btn btn-outline-info">{{ i.number}}
+                                            </button>
+
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <h5>{{ i.order.first.created_at }}</h5>
+                                    </td>
+
+                                    <td>
+                                        <a href="{% url 'order_delete' i.pk %}">
+                                            <button class="btn btn-danger">
+                                                delete
+                                            </button>
+
+                                        </a>
+                                    </td>
+                                </a>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

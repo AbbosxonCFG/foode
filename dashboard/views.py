@@ -3,10 +3,14 @@ import qrcode
 from api.serializer import *
 from django.shortcuts import render, redirect, get_object_or_404
 
-
+from api.models import *
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index_d.html')
+
+
+
+
 
 
 def table(request):
@@ -15,9 +19,23 @@ def table(request):
         table = Stol.objects.create(
             number=number
         )
-        table.generate_qr(f'{request.get_host()}/{table.id}')
+        table.generate_qr(f'{request.get_host()}/client/{table.number}')
+        return redirect('table')  # Redirect to avoid double form submission
     tables = Stol.objects.all()
     return render(request, 'table.html', {'tables': tables})
+
+
+def table_delete(request,pk):
+    stol=Stol.objects.get(id=pk)
+    stol.delete()
+    return redirect('table')
+
+
+
+
+
+
+
 
 
 def product(request):
@@ -100,6 +118,67 @@ def product_delete(request,pk):
     order.delete()
     product.delete()
     return redirect('product')
+
+
+
+
+def stol(request):
+    stols=Stol.objects.all()
+    return render(request,'dashboard_order.html',{'stols':stols})
+
+
+
+
+def order(request,pk):
+    stol=Stol.objects.get(id=pk)
+    orders=stol.order.all()
+
+
+
+    contex={
+        "stol":stol,
+        "orders":orders
+    }
+    return render(request,"detail_order.html",contex)
+
+
+
+
+def order_delete(request,pk):
+    stol=Stol.objects.get(id=pk)
+    carts=stol.carts.all()
+    carts.delete()
+    order=stol.order.all()
+    order.delete()
+    return redirect('stol')
+
+
+
+
+def category(request):
+    categories=Category.objects.all()
+    return render(request,'categories.html',{"categories":categories})
+
+
+
+
+def category_add(request):
+    if request.method=='POST':
+        name=request.POST.get('name')
+
+        category=Category.objects.create(
+            name=name
+        )
+        return redirect('category')
+    return render(request,'category_add.html')
+
+
+
+def category_delete(request,pk):
+    category=Category.objects.get(id=pk)
+    category.delete()
+    return redirect('category')
+
 
 
      

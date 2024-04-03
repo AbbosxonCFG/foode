@@ -2,34 +2,42 @@
 
 {% block content %}
 
-    <div class="pcoded-main-container">
-        <div class="pcoded-wrapper">
-            <div class="pcoded-content">
-                <form action="{% url 'table' %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="e">Table Number</label>
-                        <input name="number" type="number" class="form-control" id="e"  placeholder="Enter table number">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
-                <div class="row">
-                    {% for t in tables %}
-                        <div class="col-md-6 col-xl-4">
-                            <h5>Image Caps</h5>
-                            <hr>
-                            <div class="card mb-3">
-                                <img class="card-img-top" src="{{ t.qr.url }}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Table Number: {{ t.number }}</h5>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <!-- [ card ] end -->
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <form action="{% url 'table' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="e">Table Number</label>
+                    <input name="number" type="number" class="form-control" id="e" placeholder="Enter table number"
+                        required>
                 </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+            <div class="row">
+                {% for t in tables %}
+                <div class="col-md-6 col-xl-4">
+                    <h5>Image Caps</h5>
+                    <hr>
+                    <div class="card mb-3">
+                        <img class="card-img-top" src="{{ t.qr.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Table Number: {{ t.number }}</h5>
+                        </div>
+
+                        <a href="{% url 'table_delete' t.pk %}">
+                            <button class="btn btn-danger">
+                                delete
+                            </button>
+
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- [ card ] end -->
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

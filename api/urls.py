@@ -6,5 +6,6 @@ urlpatterns = [
     path('get-products/', get_products),
     path('create-order/', create_order),
     path('get-cart/', get_cart),
+    path('stol/', stol),
     
 ]

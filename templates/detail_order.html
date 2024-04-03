@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <h2 style="color: rgb(14, 230, 230);">Order of {{ stol.number }} -stol</h2>
+
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-styling table-info">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    <h3>Product</h3>
+                                </th>
+                                <th>
+                                    <h3>Quantity</h3>
+                                </th>
+                                <th>
+                                    <h3>Price</h3>
+                                </th>
+                            </tr>
+                        </thead>
+                        {% for i in orders %}
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>
+                                    <h4>{{ i.product.name }}</h4>
+                                </td>
+                                <td>
+                                    <h4>{{ i.quantity }}</h4>
+                                </td>
+                                <td>
+                                    <h4>{{ i.all_price}}</h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

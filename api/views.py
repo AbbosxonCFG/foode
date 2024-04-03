@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from api.models import Category, Product, Order, Cart, Waiter
-from api.serializer import CategorySerializer, ProductSerializer, OrderSerializer, CartSerializer
+from api.models import Category, Product, Order, Cart, Waiter,Stol
+from api.serializer import CategorySerializer, ProductSerializer, OrderSerializer, CartSerializer,StolSerializer
 
 
 @api_view(['GET'])
@@ -80,12 +80,11 @@ def get_cart(request):
 
 
 
-
-
-
-
-
-
+@api_view(['GET'])
+def stol(request):
+    stol=Stol.objects.all()
+    serializer=StolSerializer(stol,many=True)
+    return Response(serializer.data,status=200)
 
 
 

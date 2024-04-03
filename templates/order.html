@@ -1,0 +1,46 @@
+{% extends 'client_base.html' %}
+
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <h2 style="color: rgb(14, 230, 230);">Create_order</h2>
+
+
+            <form action="{% url 'order' %}" , method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="exam1">Stol_number</label>
+                    <select class="form-control" id="exam1" name="stol_id" required>
+                        {% for s in stols %}
+                        <option value="{{ s.id }}">{{ s.number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exam1">Product</label>
+                    <select class="form-control" id="exam1" name="product_name" required>
+                        {% for p in products %}
+                        <option>{{ p.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exa">Quantity</label>
+                    <input name="quantity" type="number" class="form-control" id="exa" placeholder="quantity" required>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
