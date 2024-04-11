@@ -1,0 +1,29 @@
+{% extends 'client_base.html' %}
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <span class="input-group-text" style="display: block; text-align: center;">
+                <h1 style="color:rgb(24, 211, 211); ">Your stol-number : {{ stol.number }}</h1>
+            </span><br>
+
+            <div style=" display: block; text-align: center; ">
+                <h5 style="font-size: 2em;">The cart is currently empty</h5>
+            </div><br>
+            <div style=" display: block; text-align: center; ">
+                <h5>Go to the main page <br> to select products and search for <br> the products you need</h5>
+            </div><br>
+
+            <div style=" display: block; text-align: center;">
+                <a href="{% url 'category_client' stol.id %}"><button
+                        style="border-radius: 50px; font-size: 3em; width: 500px;"
+                        class="btn btn-outline-info">Home</button></a>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

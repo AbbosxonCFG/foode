@@ -1,0 +1,83 @@
+{% extends 'client_base.html' %}
+
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <span class="input-group-text" style="display: block; text-align: center;">
+                <h1 style="color:rgb(24, 211, 211);">Your stol-number : {{ stol.number }}</h1>
+            </span><br>
+            <h2 style="color: rgb(14, 230, 230);">Cart</h2><br>
+
+
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-bordered"
+                        style=" background-color: rgba(187, 247, 247, 0.336); border-radius: 10px; ">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <h3>Product</h3>
+                                </th>
+                                <th>
+                                    <h3>Name</h3>
+                                </th>
+                                <th>
+                                    <h3>Quantity</h3>
+                                </th>
+                                <th>
+                                    <h3>Price</h3>
+                                </th>
+                            </tr>
+                        </thead>
+                        {% for i in carts %}
+                        <tbody>
+                            <tr>
+                                <th scope=" row">{{ c }}</th>
+                                <td>
+                                    <img class="rounded-circle" style="width:100px;" src="{{ i.product.image.url }}"
+                                        alt="">
+
+                                </td>
+                                <td>
+                                    <h4>{{ i.product.name }}</h4>
+
+                                </td>
+
+                                <td>
+                                    <h4>{{ i.quantity }}</h4>
+                                </td>
+                                <td>
+                                    <h4>{{ i.price }}</h4>
+                                </td>
+                                <td>
+                                    <a href="{% url 'del_cart_pk' stol_id i.product.pk %}"><button
+                                            class="btn btn-outline-danger">remove</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                    <span class="input-group-text" style="display: block; text-align: center;">
+                        <h1 style="color:rgb(24, 211, 211);">Total-price : {{ total_price }} </h1>
+                    </span><br>
+                    <!-- {% if stol.cart.all %}
+                    <h2><a href="{% url 'del_cart' stol_id %}"><button class="btn btn-outline-danger">Remove
+                                all</button></a></h2>
+                    {% endif %} -->
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+{% endblock %}
